@@ -12,14 +12,17 @@ import { createStore } from 'redux';
 const initialStore = { contacts: [] };
 
 // принимает предыдущее состояние и действие. Возвращает след.состояние
-const reducer = (state = initialStore, action) => {
-  switch (action.type) {
+const reducer = (state = initialStore, { type, payload }) => {
+  switch (type) {
     case 'phonebook/handelDeleteContact':
       // проверить contact.id !== action.payload
-      return state.contacts.filter(contact => contact.id !== action.payload);
+      return state.contacts.filter(contact => contact.id !== payload);
 
     case 'phonebook/contactFormSubmithandler':
-      return { contacts: [...state, action.payload] };
+      return { contacts: [...state, payload] };
+
+    // case 'phonebook/changeFilter':
+    //   return { contacts: [...state, payload] };
 
     default:
       return state;

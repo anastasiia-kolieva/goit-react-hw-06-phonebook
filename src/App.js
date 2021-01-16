@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
 import ContactForm from './components/ContactForm/ContactForm';
 import Filter from './components/Filter/Filter';
 import ContactList from './components/ContactList/ContactList';
 import useLocalStorage from './hooks/useLocalStorage';
+import * as actions from './redux/actions';
 
 const stylesForWrapper = {
   width: '500px',
@@ -15,17 +17,17 @@ const stylesForTitles = {
   color: '#6B5EAC',
 };
 
-export default function App() {
-  const [contacts, setContacts] = useLocalStorage('contacts', []);
+function App({ contacts, handelDeleteContact, contactFormSubmithandler }) {
+  // const [contacts, setContacts] = useLocalStorage('contacts', []);
   const [filter, setFilter] = useState('');
 
-  const handelDeleteContact = contactId => {
-    setContacts(contacts.filter(contact => contact.id !== contactId));
-  };
+  // const handelDeleteContact = contactId => {
+  //   setContacts(contacts.filter(contact => contact.id !== contactId));
+  // };
 
-  const contactFormSubmithandler = newContact => {
-    setContacts(prevContacts => [...prevContacts, newContact]);
-  };
+  // const contactFormSubmithandler = newContact => {
+  //   setContacts(prevContacts => [...prevContacts, newContact]);
+  // };
 
   const handelCheckUniqueContact = name => {
     const isExistContact = !!contacts.find(contact => contact.name === name);
@@ -64,6 +66,25 @@ export default function App() {
     </div>
   );
 }
+
+// получает всё состояние приложения, возвращает обьект, что полижим свойствами возвращаемого
+// обьекта, то и будет пропсами компонента
+const mapStateToProps = state => {
+  return {
+    contacts: state.contacts,
+  };
+};
+
+// метод который доставляет методы до хранилища
+const mapDispatchToProps = dispatch => {
+  return {
+    handelDeleteContact: () => dispatch(actions.handelDeleteContact()),
+    contactFormSubmithandler: () =>
+      dispatch(actions.contactFormSubmithandler()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 // class App extends Component {
 //   state = {

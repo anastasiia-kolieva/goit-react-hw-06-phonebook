@@ -1,11 +1,3 @@
-// action creator
-// export const myAction = value => {
-//   return {
-//     type: 'MY_ACTION',
-//     payload: value,
-//   };
-// };
-
 export const handelDeleteContact = value => {
   return {
     type: 'phonebook/handelDeleteContact',
@@ -19,3 +11,10 @@ export const contactFormSubmithandler = value => {
     payload: value,
   };
 };
+
+// export const changeFilter = value => {
+//     return {
+//       type: 'phonebook/changeFilter',
+//       payload: value,
+//     };
+//   };
