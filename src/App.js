@@ -17,9 +17,15 @@ const stylesForTitles = {
   color: '#6B5EAC',
 };
 
-function App({ contacts, handelDeleteContact, contactFormSubmithandler }) {
+function App({
+  contacts,
+  filter,
+  handelDeleteContact,
+  contactFormSubmithandler,
+  changeFilter,
+}) {
   // const [contacts, setContacts] = useLocalStorage('contacts', []);
-  const [filter, setFilter] = useState('');
+  // const [filter, setFilter] = useState('');
 
   // const handelDeleteContact = contactId => {
   //   setContacts(contacts.filter(contact => contact.id !== contactId));
@@ -35,9 +41,9 @@ function App({ contacts, handelDeleteContact, contactFormSubmithandler }) {
     return !isExistContact;
   };
 
-  const changeFilter = event => {
-    setFilter(event.target.value);
-  };
+  // const changeFilter = event => {
+  //   setFilter(event.target.value);
+  // };
 
   const getFilteredContacts = () => {
     const normalizedFilter = filter.toLowerCase();
@@ -71,7 +77,8 @@ function App({ contacts, handelDeleteContact, contactFormSubmithandler }) {
 // обьекта, то и будет пропсами компонента
 const mapStateToProps = state => {
   return {
-    contacts: state.contacts,
+    contacts: state.contacts.items,
+    filter: state.contacts.filter,
   };
 };
 
@@ -81,6 +88,7 @@ const mapDispatchToProps = dispatch => {
     handelDeleteContact: () => dispatch(actions.handelDeleteContact()),
     contactFormSubmithandler: () =>
       dispatch(actions.contactFormSubmithandler()),
+    changeFilter: () => dispatch(actions.changeFilter()),
   };
 };
 

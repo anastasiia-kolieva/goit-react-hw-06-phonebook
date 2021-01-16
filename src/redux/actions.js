@@ -12,9 +12,9 @@ export const contactFormSubmithandler = value => {
   };
 };
 
-// export const changeFilter = value => {
-//     return {
-//       type: 'phonebook/changeFilter',
-//       payload: value,
-//     };
-//   };
+export const changeFilter = value => {
+  return {
+    type: 'phonebook/changeFilter',
+    payload: value,
+  };
+};
