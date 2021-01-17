@@ -27,7 +27,7 @@ const itemsReducer = (state = [], { type, payload }) => {
 const filterReducer = (state = '', { type, payload }) => {
   switch (type) {
     case actionTypes.changeFilter:
-      return { ...state, payload };
+      return payload;
 
     default:
       return state;

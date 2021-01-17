@@ -1,9 +1,9 @@
 import actionTypes from './types';
 
-export const handelDeleteContact = value => {
+export const handelDeleteContact = contactId => {
   return {
     type: actionTypes.handelDeleteContact,
-    payload: value,
+    payload: contactId,
   };
 };
 

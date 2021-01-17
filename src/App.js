@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { connect } from 'react-redux';
 import ContactForm from './components/ContactForm/ContactForm';
 import Filter from './components/Filter/Filter';
@@ -19,10 +18,10 @@ const stylesForTitles = {
 
 function App({
   contacts,
-  filter,
-  handelDeleteContact,
+  // filter,
+  // handelDeleteContact,
   // contactFormSubmithandler,
-  changeFilter,
+  // changeFilter,
 }) {
   // const [contacts, setContacts] = useLocalStorage('contacts', []);
   // const [filter, setFilter] = useState('');
@@ -45,12 +44,12 @@ function App({
   //   setFilter(event.target.value);
   // };
 
-  const getFilteredContacts = () => {
-    const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter),
-    );
-  };
+  // const getFilteredContacts = () => {
+  //   const normalizedFilter = filter.toLowerCase();
+  //   return contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(normalizedFilter),
+  //   );
+  // };
 
   return (
     <div style={{ ...stylesForWrapper }}>
@@ -63,11 +62,13 @@ function App({
 
       <h2 style={{ ...stylesForTitles }}>Contacts</h2>
 
-      <Filter value={filter} onChange={changeFilter} />
+      <Filter
+      // value={filter} onChange={changeFilter}
+      />
 
       <ContactList
-        contacts={getFilteredContacts()}
-        onDeleteContact={handelDeleteContact}
+      // contacts={getFilteredContacts()}
+      // onDeleteContact={handelDeleteContact}
       />
     </div>
   );
@@ -78,21 +79,21 @@ function App({
 const mapStateToProps = state => {
   return {
     contacts: state.contacts.items,
-    filter: state.contacts.filter,
+    // filter: state.contacts.filter,
   };
 };
 
 // метод который доставляет методы до хранилища
-const mapDispatchToProps = dispatch => {
-  return {
-    handelDeleteContact: () => dispatch(actions.handelDeleteContact()),
-    // contactFormSubmithandler: () =>
-    //   dispatch(actions.contactFormSubmithandler()),
-    changeFilter: () => dispatch(actions.changeFilter()),
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+// handelDeleteContact: () => dispatch(actions.handelDeleteContact()),
+// contactFormSubmithandler: () =>
+//   dispatch(actions.contactFormSubmithandler()),
+// changeFilter: () => dispatch(actions.changeFilter()),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, null)(App);
 
 // class App extends Component {
 //   state = {
