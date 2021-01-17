@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import ContactForm from './components/ContactForm/ContactForm';
 import Filter from './components/Filter/Filter';
 import ContactList from './components/ContactList/ContactList';
-import useLocalStorage from './hooks/useLocalStorage';
-import * as actions from './redux/actions';
+// import useLocalStorage from './hooks/useLocalStorage';
+// import * as actions from './redux/actions';
 
 const stylesForWrapper = {
   width: '500px',
