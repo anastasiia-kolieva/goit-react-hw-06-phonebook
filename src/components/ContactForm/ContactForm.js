@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
 import s from '../ContactForm/ContactForm.module.css';
 import shortid from 'shortid';
+import * as actions from '../../redux/actions';
 
-export default function ContactForm({ onSubmitData, onCheckUnique }) {
+function ContactForm({ onSubmitData, onCheckUnique }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -75,6 +77,15 @@ export default function ContactForm({ onSubmitData, onCheckUnique }) {
     </form>
   );
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSubmitData: newContact =>
+      dispatch(actions.contactFormSubmithandler(newContact)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(ContactForm);
 
 // class ContactForm extends Component {
 //   state = {

@@ -1,20 +1,22 @@
+import actionTypes from './types';
+
 export const handelDeleteContact = value => {
   return {
-    type: 'phonebook/handelDeleteContact',
+    type: actionTypes.handelDeleteContact,
     payload: value,
   };
 };
 
-export const contactFormSubmithandler = value => {
+export const contactFormSubmithandler = newContact => {
   return {
-    type: 'phonebook/contactFormSubmithandler',
-    payload: value,
+    type: actionTypes.contactFormSubmithandler,
+    payload: newContact,
   };
 };
 
 export const changeFilter = value => {
   return {
-    type: 'phonebook/changeFilter',
+    type: actionTypes.changeFilter,
     payload: value,
   };
 };

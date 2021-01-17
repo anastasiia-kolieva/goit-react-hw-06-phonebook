@@ -21,7 +21,7 @@ function App({
   contacts,
   filter,
   handelDeleteContact,
-  contactFormSubmithandler,
+  // contactFormSubmithandler,
   changeFilter,
 }) {
   // const [contacts, setContacts] = useLocalStorage('contacts', []);
@@ -57,7 +57,7 @@ function App({
       <h1 style={{ ...stylesForTitles }}>Phonebook</h1>
 
       <ContactForm
-        onSubmitData={contactFormSubmithandler}
+        // onSubmitData={contactFormSubmithandler}
         onCheckUnique={handelCheckUniqueContact}
       />
 
@@ -86,8 +86,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     handelDeleteContact: () => dispatch(actions.handelDeleteContact()),
-    contactFormSubmithandler: () =>
-      dispatch(actions.contactFormSubmithandler()),
+    // contactFormSubmithandler: () =>
+    //   dispatch(actions.contactFormSubmithandler()),
     changeFilter: () => dispatch(actions.changeFilter()),
   };
 };

@@ -1,5 +1,6 @@
 import { createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import actionTypes from './types';
 
 // Пусть Redux-состояние выглядит следующим образом.
 // const initialStore = {
@@ -9,19 +10,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 //   },
 // };
 
-const contactsInitialState = {
-  items: [],
-  filter: '',
-};
-
 const itemsReducer = (state = [], { type, payload }) => {
   switch (type) {
-    case 'phonebook/handelDeleteContact':
+    case actionTypes.handelDeleteContact:
       // проверить contact.id !== action.payload
       return state.filter(contact => contact.id !== payload);
 
-    case 'phonebook/contactFormSubmithandler':
-      // Проверить возвращается ли обект или массив
+    case actionTypes.contactFormSubmithandler:
       return [...state, payload];
 
     default:
@@ -31,7 +26,7 @@ const itemsReducer = (state = [], { type, payload }) => {
 
 const filterReducer = (state = '', { type, payload }) => {
   switch (type) {
-    case 'phonebook/changeFilter':
+    case actionTypes.changeFilter:
       return { ...state, payload };
 
     default:
