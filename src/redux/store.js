@@ -1,15 +1,35 @@
 import { combineReducers } from 'redux';
-import { configureStore } from '@reduxjs/toolkit';
-import { createReducer } from '@reduxjs/toolkit';
+import {
+  configureStore,
+  createReducer,
+  getDefaultMiddleware,
+} from '@reduxjs/toolkit';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import actionTypes from './types';
 
-// Пусть Redux-состояние выглядит следующим образом.
-// const initialStore = {
-//   contacts: {
-//     items: [],
-//     filter: '',
-//   },
-// };
+const middleware = [
+  ...getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
+];
+
+const ContactsPersistConfig = {
+  key: 'contacts',
+  storage,
+  blacklist: ['filter'],
+};
 
 const itemsReducer = createReducer([], {
   // это строка потому вычисляемое свойство объекта
@@ -20,6 +40,26 @@ const itemsReducer = createReducer([], {
     action.payload,
   ],
 });
+
+const filterReducer = createReducer('', {
+  [actionTypes.changeFilter]: (_, action) => action.payload,
+});
+
+const contactReducer = combineReducers({
+  items: itemsReducer,
+  filter: filterReducer,
+});
+
+const store = configureStore({
+  reducer: {
+    contacts: persistReducer(ContactsPersistConfig, contactReducer),
+  },
+  middleware,
+});
+
+const persistor = persistStore(store);
+
+export default { store, persistor };
 
 // const itemsReducer = (state = [], { type, payload }) => {
 //   switch (type) {
@@ -35,10 +75,6 @@ const itemsReducer = createReducer([], {
 //   }
 // };
 
-const filterReducer = createReducer('', {
-  [actionTypes.changeFilter]: (state, action) => action.payload,
-});
-
 // const filterReducer = (state = '', { type, payload }) => {
 //   switch (type) {
 //     case actionTypes.changeFilter:
@@ -48,55 +84,3 @@ const filterReducer = createReducer('', {
 //       return state;
 //   }
 // };
-
-const contactReducer = combineReducers({
-  items: itemsReducer,
-  filter: filterReducer,
-});
-
-// const rootReducers = combineReducers({
-//   contacts: contactReducer,
-// });
-
-// const store = createStore(rootReducers, composeWithDevTools());
-
-const store = configureStore({
-  reducer: {
-    contacts: contactReducer,
-  },
-});
-
-export default store;
-
-// принимает предыдущее состояние и действие. Возвращает след.состояние
-// const reducer = (state = initialStore, { type, payload }) => {
-//     switch (type) {
-//       case 'phonebook/handelDeleteContact':
-//         // проверить contact.id !== action.payload
-//         return state.contacts.items.filter(contact => contact.id !== payload);
-
-//       case 'phonebook/contactFormSubmithandler':
-//         return {
-//           ...state,
-//           contacts: {
-//             ...state.contacts,
-//             items: state.contacts.items,
-//             payload,
-//           },
-//         };
-//       //   { contacts: [...state, payload] };
-
-//       case 'phonebook/changeFilter':
-//         return {
-//           ...state,
-//           contacts: {
-//             ...state.contacts,
-//             filter: state.contacts.filter,
-//             payload,
-//           },
-//         };
-
-//       default:
-//         return state;
-//     }
-//   };
