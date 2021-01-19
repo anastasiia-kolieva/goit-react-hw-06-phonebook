@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import s from '../ContactForm/ContactForm.module.css';
 import shortid from 'shortid';
 import * as actions from '../../redux/actions';
 
-function ContactForm({ onSubmitData, onCheckUnique }) {
+export default function ContactForm({ onCheckUnique }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -31,7 +32,13 @@ function ContactForm({ onSubmitData, onCheckUnique }) {
       return;
     }
 
-    onSubmitData({ id: shortid.generate(), name, number });
+    dispatch(
+      actions.contactFormSubmithandler({
+        id: shortid.generate(),
+        name,
+        number,
+      }),
+    );
 
     resetForm();
   };
@@ -78,11 +85,11 @@ function ContactForm({ onSubmitData, onCheckUnique }) {
   );
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onSubmitData: newContact =>
-      dispatch(actions.contactFormSubmithandler(newContact)),
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     onSubmitData: newContact =>
+//       dispatch(actions.contactFormSubmithandler(newContact)),
+//   };
+// };
 
-export default connect(null, mapDispatchToProps)(ContactForm);
+// export default connect(null, mapDispatchToProps)(ContactForm);

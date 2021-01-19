@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ContactForm from './components/ContactForm/ContactForm';
 import Filter from './components/Filter/Filter';
 import ContactList from './components/ContactList/ContactList';
@@ -14,7 +14,9 @@ const stylesForTitles = {
   color: '#6B5EAC',
 };
 
-function App({ contacts }) {
+export default function App() {
+  const contacts = useSelector(state => state.contacts.items);
+
   const handelCheckUniqueContact = name => {
     const isExistContact = !!contacts.find(contact => contact.name === name);
     isExistContact && alert('Contact is already exist!');
@@ -38,10 +40,10 @@ function App({ contacts }) {
 
 // получает всё состояние приложения, возвращает обьект, что полижим свойствами возвращаемого
 // обьекта, то и будет пропсами компонента
-const mapStateToProps = state => {
-  return {
-    contacts: state.contacts.items,
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     contacts: state.contacts.items,
+//   };
+// };
 
-export default connect(mapStateToProps, null)(App);
+// export default connect(mapStateToProps, null)(App);

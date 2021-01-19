@@ -1,9 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import s from '../Filter/Filter.module.css';
 import * as actions from '../../redux/actions';
 
-const Filter = ({ value, onChange }) => {
+export default function Filter() {
+  const value = useSelector(state => state.contacts.filter);
+  const dispatch = useDispatch();
+
   return (
     <>
       <h2 className={s.filter_title}>Find contacts by name</h2>
@@ -12,22 +15,22 @@ const Filter = ({ value, onChange }) => {
         placeholder="Enter contact name"
         className={s.filter_input}
         value={value}
-        onChange={onChange}
+        onChange={event => dispatch(actions.changeFilter(event.target.value))}
       ></input>
     </>
   );
-};
+}
 
-const mapStateToProps = state => {
-  return {
-    value: state.contacts.filter,
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     value: state.contacts.filter,
+//   };
+// };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onChange: event => dispatch(actions.changeFilter(event.target.value)),
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     onChange: event => dispatch(actions.changeFilter(event.target.value)),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+// export default connect(mapStateToProps, mapDispatchToProps)(Filter);
