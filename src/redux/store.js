@@ -59,7 +59,9 @@ const store = configureStore({
 
 const persistor = persistStore(store);
 
-export default { store, persistor };
+const contactStore = { store, persistor };
+
+export default contactStore;
 
 // const itemsReducer = (state = [], { type, payload }) => {
 //   switch (type) {

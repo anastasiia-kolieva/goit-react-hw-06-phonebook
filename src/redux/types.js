@@ -2,8 +2,10 @@ const handelDeleteContact = 'phonebook/handelDeleteContact';
 const contactFormSubmithandler = 'phonebook/contactFormSubmithandler';
 const changeFilter = 'phonebook/changeFilter';
 
-export default {
+const actionsTypes = {
   handelDeleteContact,
   contactFormSubmithandler,
   changeFilter,
 };
+
+export default actionsTypes;
